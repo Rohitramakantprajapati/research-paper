@@ -1,0 +1,48 @@
+<section class="chapter" id="chapter-1">
+  <h2 class="chapter-title">CHAPTER 1: Introduction, Historical Context, and Honest Scope</h2>
+  
+  <h3>1.1. Physical Foundations and the Incompressible Equations</h3>
+  <p>
+    The motion of a viscous, homogeneous, incompressible Newtonian fluid occupying the three-dimensional Euclidean space $\mathbb{R}^3$ without external body forces is governed by the classical Navier–Stokes system:
+  </p>
+  <div class="equation">
+    $$\partial_t u + (u \cdot \nabla) u + \nabla p = \nu \Delta u, \quad \operatorname{div} u = 0, \tag{1.1}$$
+  </div>
+  <p>
+    subject to initial velocity conditions $u(x, 0) = u_0(x)$ satisfying $\operatorname{div} u_0 = 0$. Here $u(x,t) = (u_1, u_2, u_3) \in \mathbb{R}^3$ denotes the fluid velocity vector, $p(x,t) \in \mathbb{R}$ represents the scalar kinematic pressure field, and $\nu > 0$ is the constant kinematic viscosity coefficient.
+  </p>
+  <p>
+    In his 1934 founding memoir, Jean Leray established the existence of global weak solutions satisfying the energy inequality:
+  </p>
+  <div class="equation">
+    $$\frac{1}{2} \|u(t)\|_{L^2}^2 + \nu \int_0^t \|\nabla u(s)\|_{L^2}^2\,ds \le \frac{1}{2} \|u_0\|_{L^2}^2 \quad \text{for all } t \ge 0. \tag{1.2}$$
+  </div>
+  <p>
+    However, the uniqueness of Leray–Hopf weak solutions and the preservation of smoothness for all $t > 0$ given smooth, compactly supported initial data $u_0 \in C_c^\infty(\mathbb{R}^3)$ remains one of the premier open problems in mathematical analysis, designated by the Clay Mathematics Institute as a Millennium Prize Problem.
+  </p>
+
+  <h3>1.2. The Supercriticality Obstacle and Scale Invariance</h3>
+  <p>
+    The core difficulty preventing an easy resolution is the scale-supercriticality of the kinetic energy. Under the Navier–Stokes parabolic rescaling:
+  </p>
+  <div class="equation">
+    $$u_\lambda(x,t) = \lambda u(\lambda x, \lambda^2 t), \quad p_\lambda(x,t) = \lambda^2 p(\lambda x, \lambda^2 t), \tag{1.3}$$
+  </div>
+  <p>
+    the spatial $L^2$ kinetic energy scales as $\|u_\lambda(\cdot, t)\|_{L^2}^2 = \lambda^{-1} \|u(\cdot, \lambda^2 t)\|_{L^2}^2$. As $\lambda \to \infty$ (zooming into small-scale structures where singularities might develop), the kinetic energy vanishes like $\lambda^{-1}$. Consequently, the Leray–Hopf energy bound provides zero control against small-scale concentration of velocity and vorticity.
+  </p>
+
+  <h3>1.3. Scope and Intellectual Boundaries of this Monograph</h3>
+  <div class="theorem-box alert-box">
+    <strong>Honest Scientific Scope:</strong>
+    <p>
+      This monograph establishes <strong>CONDITIONAL REGULARITY THEOREMS</strong> under geometric constraints on the vorticity direction field $\xi(x,t) = \omega(x,t)/|\omega(x,t)|$. Specifically:
+    </p>
+    <ul>
+      <li>For localized Hölder exponent $\alpha > 1/2$ (Hypothesis $H_\alpha$), we prove global regularity unconditionally in data (Theorem 6.1).</li>
+      <li>For the critical exponent $\alpha = 1/2$, we prove global regularity under an explicit, dimensionless small-data condition, while proving that the Osgood integral converges and leaves large-data blow-up open (Theorem 7.1).</li>
+      <li>We prove why an unconditional derivation of Hypothesis $H_\alpha$ from smooth initial data remains fundamentally open due to the nonlinear drift-diffusion circularity on $\mathbb{S}^2$ (Chapter 8).</li>
+      <li>This monograph does <strong>not</strong> claim an unconditional resolution of the Clay Millennium Prize Problem.</li>
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,40 @@
+<div class="header-section">
+  <h1 class="title">On the Directional Drift-Diffusion of Vorticity, Scale-Invariant Strain Bounds, and Ancient Rigidity for the 3D Incompressible Navier–Stokes Equations</h1>
+  <div class="subtitle">A Comprehensive Mathematical Treatise on Geometric Regularity, Critical Scaling, and Formal Verification</div>
+  
+  <div class="author-block">Rohit Ramakant Prajapati</div>
+  <div class="affiliation">Department of Mathematics &bull; Theoretical Fluid Dynamics and Formal Verification Group</div>
+  <div class="date">October 2026</div>
+</div>
+
+<div class="abstract-box">
+  <div class="abstract-title">ABSTRACT</div>
+  <p>
+    This monograph presents a mathematically self-contained, publication-grade investigation into the Cauchy problem for the three-dimensional incompressible Navier–Stokes equations in $\mathbb{R}^3$. We systematically investigate the geometric mechanisms governing vortex stretching, multi-scale Biot–Savart strain decomposition, and enstrophy dissipation. By projecting the vorticity vector field onto the unit sphere $\mathbb{S}^2$ via $\omega(x,t) = |\omega(x,t)| \xi(x,t)$, we establish the exact orthogonal dissipation identity $|\nabla \omega|^2 = |\nabla |\omega||^2 + |\omega|^2 |\nabla \xi|^2$, which establishes a dedicated space-time twisting budget for vortex line bending.
+  </p>
+  <p>
+    Under the geometric hypothesis that the vorticity direction field $\xi$ satisfies localized Hölder continuity with exponent $\alpha \in (0, 1]$ (Hypothesis $H_\alpha$), we resolve the near-field derivative loss via Young's convolution inequality in $L^3(\mathbb{R}^3)$ with dynamic core contraction $z(t) \sim \nu^2 / Q(t)$, absorbing the near-field strain directly into viscous dissipation with zero loss of derivatives. For the subcritical regime $\alpha > 1/2$, we prove that the enstrophy growth rate is linearly bounded in $L^1(0, T)$, yielding unconditional global smooth continuation ($T^* = \infty$) for arbitrary initial data. For the borderline critical exponent $\alpha = 1/2$, Young's inequality produces a scale-invariant logarithmic loss $\ln^{5/3}(R Q / \nu^2)$, yielding an enstrophy ODE of Osgood type; we prove global regularity under an explicit, dimensionless small-data condition, while proving that the Osgood integral converges and leaves the large-data regime open.
+  </p>
+  <p>
+    We further establish that our geometric framework escapes Terence Tao's 2016 averaged blow-up barrier because the Constantin–Fefferman cancellation $D(\hat{y}, \xi, \xi) \equiv 0$ is destroyed by quadratic averaging. We derive the complete directional drift-diffusion PDE on $\mathbb{S}^2$ and articulate the circularity barrier that prevents an unconditional derivation of Hypothesis $H_\alpha$. Finally, the deductive architecture connecting our analytical interfaces to enstrophy boundedness and blow-up exclusion is formally certified in <strong>Lean 4</strong> with zero <code>sorry</code> statements, relying strictly on standard kernel axioms <code>[propext, Classical.choice, Quot.sound]</code>. We conclude with a comprehensive technical audit retracting heuristic shortcuts from earlier drafts and codifying the true frontier of mathematical fluid dynamics.
+  </p>
+</div>
+
+<div class="toc-box">
+  <div class="toc-title">TABLE OF CONTENTS</div>
+  <ul class="toc-list">
+    <li><strong>Chapter 1:</strong> Introduction, Historical Context, and Honest Scope</li>
+    <li><strong>Chapter 2:</strong> Functional Analytic Foundations, Scaling Invariance, and Harmonic Analysis</li>
+    <li><strong>Chapter 3:</strong> The Vorticity Formulation, Boundary Vanishing, and the Enstrophy Identity</li>
+    <li><strong>Chapter 4:</strong> Directional Dynamics, Orthogonal Dissipation Splitting, and Drift-Diffusion on $\mathbb{S}^2$</li>
+    <li><strong>Chapter 5:</strong> Multi-Scale Biot–Savart Decomposition and Geometric Depletion</li>
+    <li><strong>Chapter 6:</strong> The Subcritical Regularity Theorem ($\alpha > 1/2$)</li>
+    <li><strong>Chapter 7:</strong> The Critical Case $\alpha = 1/2$, Logarithmic Loss, and Osgood Closure</li>
+    <li><strong>Chapter 8:</strong> Scaling Analysis, Supercriticality, the Tao Barrier, and Hypothesis $H$</li>
+    <li><strong>Chapter 9:</strong> Formalization in Lean 4: Scope, Axiomatic Foundations, and Audited Code</li>
+    <li><strong>Chapter 10:</strong> Retracted Claims, Audited Errors, and Technical Corrections</li>
+    <li><strong>Chapter 11:</strong> Conclusion, Summary of Established Theorems, and Open Problems</li>
+    <li><strong>Appendices:</strong> Appendix A (Singular Kernels), Appendix B (Constant Ledger), Appendix C (Lean 4 Code)</li>
+    <li><strong>Bibliography:</strong> Comprehensive Academic References</li>
+  </ul>
+</div>

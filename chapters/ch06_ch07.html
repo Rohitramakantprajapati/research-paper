@@ -1,0 +1,65 @@
+<section class="chapter" id="chapter-6">
+  <h2 class="chapter-title">CHAPTER 6: The Subcritical Regularity Theorem ($\alpha > 1/2$)</h2>
+  
+  <div class="theorem-box">
+    <strong>Theorem 6.1 (Main Subcritical Regularity Theorem):</strong>
+    <p>
+      Let $u_0 \in H^1(\mathbb{R}^3)$ with $\operatorname{div} u_0 = 0$, $E_0 = \|u_0\|_{L^2}^2$, and $Q_0 = \|\omega_0\|_{L^2}^2$. Let $u \in C([0, T^*); H^1(\mathbb{R}^3))$ be the maximal strong solution.
+      Assume Hypothesis $H_\alpha$ holds on $[0, T^*)$ with localized Hölder exponent $\alpha \in (1/2, 1]$:
+    </p>
+    <div class="equation">
+      $$|\xi(x+y, t) - \xi(x, t)| \le K_\xi |y|^\alpha \quad \text{for all } x \in \Omega_M(t), \; |y| \le R. \tag{6.1}$$
+    </div>
+    <p>
+      Then the enstrophy $Q(t) = \|\omega(t)\|_{L^2}^2$ satisfies the linear differential inequality:
+    </p>
+    <div class="equation">
+      $$\dot{Q}(t) \le \gamma(t) Q(t), \quad \gamma(t) = \frac{C_A^2 K_\xi^2}{\nu} Q(t) + C_E R^{-5/2} E_0^{1/2}. \tag{6.2}$$
+    </div>
+    <p>
+      Since $\int_0^T Q(s)\,ds \le \frac{E_0}{2\nu}$ by the Leray–Hopf energy inequality, $\gamma \in L^1(0, T)$ with uniform bound:
+    </p>
+    <div class="equation">
+      $$B(T) := \int_0^T \gamma(s)\,ds \le \frac{C_A^2 K_\xi^2 E_0}{2\nu^2} + C_E R^{-5/2} E_0^{1/2} T < \infty. \tag{6.3}$$
+    </div>
+    <p>
+      Grönwall's inequality yields $Q(t) \le Q_0 \exp(B(T)) < \infty$ for all $t \in [0, T]$. By Beale–Kato–Majda, $T^* = \infty$, proving global smooth existence.
+    </p>
+  </div>
+</section>
+
+<section class="chapter" id="chapter-7">
+  <h2 class="chapter-title">CHAPTER 7: The Critical Case $\alpha = 1/2$, Logarithmic Loss, and Osgood Closure</h2>
+  
+  <h3>7.1. Young's Convolution in $L^{6/5}$ and Logarithmic Divergence</h3>
+  <p>
+    At the critical exponent $\alpha = 1/2$, Young's convolution inequality $\|S_A\|_{L^3} \le \|K_{A,\xi}\|_{L^{6/5}} \|\omega\|_{L^2}$ requires computing:
+  </p>
+  <div class="equation">
+    $$\|K_{A,\xi}\|_{L^{6/5}}^{6/5} \le (C_K K_\xi)^{6/5} 4\pi \int_z^R r^{\frac{6}{5}(1/2 - 3) + 2}\,dr = 4\pi (C_K K_\xi)^{6/5} \int_z^R r^{-1}\,dr = 4\pi (C_K K_\xi)^{6/5} \ln\left(\frac{R}{z}\right). \tag{7.1}$$
+  </div>
+  <p>
+    Taking the $5/6$ power yields $\|S_A\|_{L^3} \le (4\pi)^{5/6} C_K K_\xi \ln^{5/6}(R/z) Q(t)^{1/2}$.
+  </p>
+
+  <h3>7.2. The Critical Osgood Theorem</h3>
+  <div class="theorem-box">
+    <strong>Theorem 7.1 (Critical Regularity and Logarithmic Osgood Closure):</strong>
+    <p>
+      Under Hypothesis $H_{1/2}$ with $\alpha = 1/2$, with core cutoff $z(t) = \frac{c_* \nu^2}{Q(t)}$, the logarithmic enstrophy variable $y(t) = \ln\left( \frac{R Q(t)}{c_* \nu^2} \right)$ satisfies:
+    </p>
+    <div class="equation">
+      $$y(t)^{-5/3} \frac{dy}{dt} \le \frac{c_A K_\xi^2}{\nu} Q(t). \tag{7.2}$$
+    </div>
+    <p>
+      Integrating over time against $\int_0^T Q(s)\,ds \le \frac{E_0}{2\nu}$ yields:
+    </p>
+    <div class="equation">
+      $$y(t)^{-2/3} \ge y_0^{-2/3} - \frac{2}{3} \Theta_{crit}, \quad \Theta_{crit} = \frac{c_A K_\xi^2 E_0}{2\nu^2}. \tag{7.3}$$
+    </div>
+    <p>
+      <strong>Conclusion:</strong> If $\Theta_{crit} < \frac{3}{2} y_0^{-2/3}$ (small-data regime), $y(t)$ remains bounded and the solution is globally smooth ($T^* = \infty$).
+      If $\Theta_{crit} \ge \frac{3}{2} y_0^{-2/3}$, the Osgood integral $\int^\infty y^{-5/3} dy < \infty$ converges, blow-up is unprevented, and unconditional regularity remains strictly <strong>OPEN</strong>.
+    </p>
+  </div>
+</section>
