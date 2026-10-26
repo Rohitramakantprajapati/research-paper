@@ -1,0 +1,23 @@
+{
+  "title": "Machine-Checked Formal Verification of BKM Blow-Up Exclusion and Navier-Stokes Regularity Interface in Lean 4",
+  "description": "This repository provides a modular, machine-checked Lean 4 package implementing the Beale-Kato-Majda (BKM) blow-up exclusion pipeline for the 3D incompressible Navier-Stokes equations under Mathlib 4 (v4.35.0). It verifies real-calculus integrating factor steps, differential-to-exponential Gronwall bounds, and constructive existence of enstrophy bounds, proving that finite-time blowup is logically contradictory under bounded stretching rates.",
+  "creators": [
+    {
+      "name": "Prajapati, Rohit Ramakant",
+      "affiliation": "Independent Researcher"
+    }
+  ],
+  "access_right": "open",
+  "license": "Apache-2.0",
+  "keywords": [
+    "Navier-Stokes equations",
+    "Fluid Mechanics",
+    "Lean 4",
+    "Formal Verification",
+    "Mathlib",
+    "Beale-Kato-Majda",
+    "Vorticity Dynamics",
+    "Partial Differential Equations"
+  ],
+  "upload_type": "software"
+}

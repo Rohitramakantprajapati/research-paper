@@ -1,0 +1,5 @@
+import ResearchPaper.MainRegularity
+
+#print axioms navier_stokes_unconditional_regularity
+#print axioms bkm_blowup_exclusion
+#print axioms differential_to_exponential_bound
