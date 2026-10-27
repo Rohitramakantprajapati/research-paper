@@ -196,8 +196,23 @@ CSS_STYLES = """
   .equation {
     margin: 10pt 0;
     text-align: center;
-    overflow-x: auto;
     page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .katex-display {
+    margin: 8pt 0 !important;
+    text-align: center !important;
+    overflow-x: visible !important;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  .katex {
+    font-size: 1.02em;
+    text-rendering: geometricPrecision;
+  }
+  .katex-display > .katex {
+    text-align: center;
+    white-space: nowrap;
   }
 
   /* Tables */

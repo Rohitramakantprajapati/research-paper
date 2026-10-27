@@ -30,7 +30,7 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
-    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}]});"></script>
+    onload="renderMathInElement(document.body, {delimiters: [{left: '$$', right: '$$', display: true}, {left: '$', right: '$', display: false}], throwOnError: false, strict: false});"></script>
 <style>
 {css_styles}
 </style>
@@ -42,6 +42,23 @@ HTML_TEMPLATE = """<!DOCTYPE html>
 </body>
 </html>
 """
+
+def clean_latex(text):
+    """
+    Normalizes LaTeX backslashes so that math equations render in standard horizontal format
+    instead of stacking vertically due to extraneous '\\' newline tokens.
+    """
+    # Protect cases and matrix row breaks
+    text = re.sub(r'\\\\(?=\s*(?:[0-9]|\\text|\\end))', '__KATEX_ROWBREAK__', text)
+    text = re.sub(r'\\\\(?=\s*\\\\\s*(?:[0-9]|\\text|\\end))', '__KATEX_ROWBREAK__', text)
+    
+    # Replace all extraneous double backslashes with single backslash
+    text = text.replace('\\\\', '\\')
+    
+    # Restore genuine matrix/cases row breaks
+    text = text.replace('__KATEX_ROWBREAK__', '\\\\')
+    
+    return text
 
 def assemble_thesis():
     print("Assembling dissertation chapters and front matter...")
@@ -63,13 +80,16 @@ def assemble_thesis():
         generate_bibliography()
     ]
     
-    full_body = "\n".join(body_parts)
+    raw_body = "\n".join(body_parts)
+    print("Normalizing equation backslashes for horizontal math formatting...")
+    full_body = clean_latex(raw_body)
+    
     full_html = HTML_TEMPLATE.replace("{css_styles}", CSS_STYLES).replace("{body_content}", full_body)
     
     output_html_path = os.path.abspath("university_thesis_monograph.html")
     with open(output_html_path, "w", encoding="utf-8") as f:
         f.write(full_html)
-    print(f"Generated HTML treatise: {output_html_path} ({len(full_html)} bytes)")
+    print(f"Generated clean HTML treatise: {output_html_path} ({len(full_html)} bytes)")
     return output_html_path
 
 def compile_pdf(html_path):
@@ -88,8 +108,27 @@ def compile_pdf(html_path):
         page = browser.new_page()
         page.goto(f"file:///{html_path.replace(os.sep, '/')}", wait_until="networkidle")
         
-        print("Waiting for KaTeX mathematical typesetting engine to render...")
-        page.wait_for_timeout(6000)
+        print("Ensuring KaTeX renders all equations horizontally...")
+        page.evaluate("""() => {
+            if (typeof renderMathInElement !== 'undefined') {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false}
+                    ],
+                    throwOnError: false,
+                    strict: false
+                });
+            }
+        }""")
+        
+        # Wait for fonts to be ready
+        page.evaluate("() => document.fonts.ready")
+        page.wait_for_timeout(5000)
+        
+        # Check rendered math count
+        math_count = page.evaluate("() => document.querySelectorAll('.katex').length")
+        print(f"Successfully rendered {math_count} KaTeX mathematical formulas.")
         
         print("Rendering publication-grade PDF via Chromium printing pipeline...")
         page.pdf(
@@ -104,32 +143,48 @@ def compile_pdf(html_path):
         browser.close()
         
     if os.path.exists(output_pdf_path):
+        # Update monograph.pdf in thesis_generator
         shutil.copyfile(output_pdf_path, monograph_pdf_path)
-        print(f"Updated primary repository PDF: {monograph_pdf_path}")
         
-        # Check desktop path if available
-        desktop_dir = r"C:\Users\praja\Desktop\research paper 2"
-        if os.path.exists(desktop_dir):
-            desktop_pdf = os.path.join(desktop_dir, "university_thesis_monograph.pdf")
-            desktop_monograph = os.path.join(desktop_dir, "monograph.pdf")
-            try:
-                shutil.copyfile(output_pdf_path, desktop_pdf)
-                shutil.copyfile(output_pdf_path, desktop_monograph)
-                print(f"Copied PDF to user desktop directory: {desktop_pdf}")
-            except Exception as e:
-                print(f"Could not copy to desktop directory: {e}")
-                
+        # Update root repo PDFs and HTML
+        repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+        root_monograph = os.path.join(repo_root, "monograph.pdf")
+        root_thesis = os.path.join(repo_root, "university_thesis_monograph.pdf")
+        root_html = os.path.join(repo_root, "university_thesis_monograph.html")
+        try:
+            shutil.copyfile(output_pdf_path, root_monograph)
+            shutil.copyfile(output_pdf_path, root_thesis)
+            shutil.copyfile(html_path, root_html)
+            print("Updated root repository monograph.pdf and university_thesis_monograph.pdf")
+        except Exception as e:
+            print(f"Warning updating root repo files: {e}")
+            
+        # Copy to Desktop directories
+        desktop_folders = [
+            r"C:\Users\praja\Desktop\research paper 3",
+            r"C:\Users\praja\Desktop\research paper 2"
+        ]
+        for df in desktop_folders:
+            if os.path.exists(df):
+                try:
+                    shutil.copyfile(output_pdf_path, os.path.join(df, "university_thesis_monograph.pdf"))
+                    shutil.copyfile(output_pdf_path, os.path.join(df, "monograph.pdf"))
+                    shutil.copyfile(html_path, os.path.join(df, "university_thesis_monograph.html"))
+                    print(f"Updated Desktop directory: {df}")
+                except Exception as e:
+                    print(f"Warning updating {df}: {e}")
+                    
         # Count pages
         try:
             with open(output_pdf_path, "rb") as f:
                 data = f.read()
                 page_matches = re.findall(rb'/Type\s*/Page\b', data)
                 page_count = len(page_matches)
-                print(f"==================================================")
+                print("=" * 60)
                 print(f"SUCCESS: Generated {output_pdf_path}")
                 print(f"File Size: {os.path.getsize(output_pdf_path) / (1024*1024):.2f} MB")
                 print(f"Total Page Count: {page_count} pages")
-                print(f"==================================================")
+                print("=" * 60)
                 return page_count
         except Exception as e:
             print(f"Error checking page count: {e}")
