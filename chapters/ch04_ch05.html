@@ -26,36 +26,40 @@
   <div class="equation">
     $$\nu \int_0^T \int_{\Omega_M(t)} |\omega|^2 |\nabla \xi|^2\,dx\,dt \le \frac{1}{2} Q_0 + \int_0^T \int_{\mathbb{R}^3} |S(x,t)| |\omega(x,t)|^2\,dx\,dt < \infty. \tag{4.2}$$
   </div>
+  <p>
+    <strong>Crucial Geometric Obstacle on the Zero Set:</strong> On the complementary domain $\Omega_M^c(t) = \{x : |\omega(x,t)| \le M\}$, the weight $|\omega|^2$ vanishes as $|\omega| \to 0$. Consequently, the twisting dissipation $|\omega|^2 |\nabla \xi|^2$ provides <em>zero control</em> over directional oscillations in regions of low vorticity. Any claim that directional alignment persists uniformly on a macroscopic ball without lower bounds on $|\omega|$ is mathematically false and is explicitly retracted in Chapter 10.
+  </p>
 </section>
 
 <section class="chapter" id="chapter-5">
   <h2 class="chapter-title">CHAPTER 5: Multi-Scale Biot–Savart Decomposition and Geometric Depletion</h2>
   
-  <h3>5.1. Three-Zone Spatial Decomposition</h3>
+  <h3>5.1. Three-Zone Spatial Decomposition via Smooth Partition of Unity</h3>
   <p>
-    For any observation point $x \in \Omega_M(t)$, we partition $\mathbb{R}^3$ into three concentric zones using an inner dynamic cutoff $z(t) > 0$ and an outer radius $R > 0$:
+    To eliminate spurious boundary terms on sharp cutoff balls, let $\chi \in C_c^\infty(\mathbb{R}^3)$ be a standard smooth radial cutoff function such that $0 \le \chi \le 1$, $\chi(y) = 1$ for $|y| \le 1/2$, and $\chi(y) = 0$ for $|y| \ge 1$. For any dynamic radius $z(t) > 0$ and outer radius $R > 0$, we decompose the Biot–Savart kernel using smooth partitions:
+    $$\mathbf{1} = \chi(y/z(t)) + \left[ (1 - \chi(y/z(t))) \chi(y/R) \right] + \left[ 1 - \chi(y/R) \right] =: \chi_{near}(y) + \chi_{mid}(y) + \chi_{far}(y).$$
   </p>
-  <ol>
-    <li><strong>Near-Field Core ($B_z(x) = \{y : |y| \le z(t)\}$):</strong> Dominated by local singular interaction;</li>
-    <li><strong>Intermediate Shell ($A_{z,R}(x) = \{y : z(t) \le |y| \le R\}$):</strong> Governed by geometric directional depletion;</li>
-    <li><strong>Far-Field Exterior ($E_R(x) = \{y : |y| > R\}$):</strong> Controlled by global $L^2$ kinetic energy.</li>
-  </ol>
 
-  <h3>5.2. Resolution of Near-Field Derivative Loss via Young's Convolution</h3>
+  <h3>5.2. Resolution of Near-Field Derivative Loss via Direct Velocity Gradient Convolution</h3>
   <div class="theorem-box">
-    <strong>Lemma 5.1 (Near-Field Strain Bound):</strong>
+    <strong>Lemma 5.1 (Near-Field Strain Bound via Smooth Young Convolution):</strong>
     <p>
-      The near-field strain tensor $S_{B_z}(x)$ satisfies:
+      Let $u_{near} = K_{near} * \omega$, where $K_{near}(y) = \chi(y/z) \frac{1}{4\pi} \frac{y \times \cdot}{|y|^3}$. Since $\operatorname{div} \omega = 0$, the spatial gradient of velocity satisfies directly:
+      $$\nabla u_{near}(x) = K_{near} * \nabla \omega(x). \tag{5.1}$$
+      <em>Notice: No integration by parts is performed on $B_z$, and consequently no boundary surface integrals on $\partial B_z$ are neglected.</em>
+      Since $|K_{near}(y)| \le \frac{1}{4\pi} |y|^{-2} \mathbf{1}_{|y| \le z}$, the $L^{6/5}(\mathbb{R}^3)$ norm of $K_{near}$ is evaluated directly in spherical coordinates:
+      $$\|K_{near}\|_{L^{6/5}}^{6/5} \le \left(\frac{1}{4\pi}\right)^{6/5} 4\pi \int_0^z (r^{-2})^{6/5} r^2\,dr = (4\pi)^{-1/5} \int_0^z r^{-2/5}\,dr = \frac{5}{3} (4\pi)^{-1/5} z^{3/5}.$$
+      Taking the $5/6$ power yields:
+      $$\|K_{near}\|_{L^{6/5}(\mathbb{R}^3)} \le C_1 z(t)^{1/2}, \quad C_1 = \left(\frac{5}{3}\right)^{5/6} (4\pi)^{-1/6} \approx 0.985. \tag{5.2}$$
+      By Young's convolution inequality with $1 + \frac{1}{3} = \frac{5}{6} + \frac{1}{2}$:
+      $$\|S_{near}\|_{L^3} \le \|\nabla u_{near}\|_{L^3} \le \|K_{near}\|_{L^{6/5}} \|\nabla \omega\|_{L^2} \le C_1 z(t)^{1/2} \|\nabla \omega\|_{L^2}. \tag{5.3}$$
+      Coupling with Gagliardo–Nirenberg $\|\omega\|_{L^3}^2 \le C_{GN}^2 \|\omega\|_{L^2} \|\nabla \omega\|_{L^2} = C_{GN}^2 Q(t)^{1/2} \|\nabla \omega\|_{L^2}$:
+      $$\int_{\Omega_M(t)} |S_{near}| |\omega|^2\,dx \le C_1 C_{GN}^2 z(t)^{1/2} Q(t)^{1/2} \|\nabla \omega\|_{L^2}^2. \tag{5.4}$$
+      Choosing the dynamic cutoff radius:
+      $$z(t) = \frac{c_* \nu^2}{Q(t)}, \quad c_* = (16 C_1^2 C_{GN}^4)^{-1}, \tag{5.5}$$
+      the near-field stretching is absorbed entirely into viscous dissipation:
+      $$\int_{\Omega_M(t)} |S_{near}| |\omega|^2\,dx \le \frac{\nu}{4} \|\nabla \omega\|_{L^2}^2. \tag{5.6}$$
     </p>
-    <div class="equation">
-      $$\|S_{B_z}\|_{L^3(\mathbb{R}^3)} \le C_1 z(t)^{1/2} \|\nabla \omega\|_{L^2(\mathbb{R}^3)}, \quad C_1 = \left(\frac{20\pi}{3}\right)^{5/6} \approx 4.881. \tag{5.1}$$
-    </div>
-    <p>
-      Choosing $z(t) = \frac{c_* \nu^2}{Q(t)}$ with $c_* = (16 C_1^2 C_{GN}^4)^{-1}$, the near-field stretching satisfies:
-    </p>
-    <div class="equation">
-      $$\int_{\Omega_M(t)} |S_{B_z}| |\omega|^2\,dx \le \frac{\nu}{4} \|\nabla \omega\|_{L^2}^2. \tag{5.2}$$
-    </div>
   </div>
 
   <h3>5.3. Constantin–Fefferman Geometric Depletion in the Intermediate Shell</h3>
@@ -66,7 +70,7 @@
       For any $\alpha > 0$, the intermediate shell integral satisfies:
     </p>
     <div class="equation">
-      $$\int_z^R r^{\alpha - 3} r^2\,dr = \int_z^R r^{\alpha - 1}\,dr = \frac{R^\alpha - z^\alpha}{\alpha} \le \frac{R^\alpha}{\alpha} < \infty. \tag{5.3}$$
+      $$\int_z^R r^{\alpha - 3} r^2\,dr = \int_z^R r^{\alpha - 1}\,dr = \frac{R^\alpha - z^\alpha}{\alpha} \le \frac{R^\alpha}{\alpha} < \infty. \tag{5.7}$$
     </div>
   </div>
 </section>

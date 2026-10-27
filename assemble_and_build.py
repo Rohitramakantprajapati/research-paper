@@ -206,13 +206,17 @@ def compile_pdf():
     if not os.path.exists(chrome_path):
         chrome_path = r"C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe"
         
-    print(f"Compiling PDF via Playwright with {chrome_path}...")
+    print(f"Compiling PDF via Playwright with {chrome_path}...", flush=True)
     with sync_playwright() as p:
-        browser = p.chromium.launch(executable_path=chrome_path, headless=True)
+        browser = p.chromium.launch(
+            executable_path=chrome_path,
+            headless=True,
+            args=['--no-sandbox', '--disable-gpu', '--disable-dev-shm-usage']
+        )
         page = browser.new_page()
-        page.goto(f"file:///{OUTPUT_HTML.replace(os.sep, '/')}", wait_until="networkidle")
-        print("Waiting for KaTeX rendering...")
-        page.wait_for_timeout(4000)
+        page.goto(f"file:///{OUTPUT_HTML.replace(os.sep, '/')}", wait_until="load")
+        print("Waiting for KaTeX rendering...", flush=True)
+        page.wait_for_timeout(3000)
         
         page.pdf(
             path=OUTPUT_PDF,
@@ -232,7 +236,7 @@ def copy_to_desktop():
     print(f"Copying monograph assets to Desktop: {DESKTOP_DIR}...")
     os.makedirs(DESKTOP_DIR, exist_ok=True)
     subprocess.run([
-        "robocopy", BASE_DIR, DESKTOP_DIR, "monograph.pdf", "monograph_full_treatise.html",
+        "robocopy", BASE_DIR, DESKTOP_DIR, "monograph.pdf", "monograph_full_treatise.html", "monograph.tex",
         "/IS", "/IT"
     ], check=False)
     print("Desktop assets synchronized.")
