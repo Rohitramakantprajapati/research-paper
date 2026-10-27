@@ -17,6 +17,11 @@ lake-packages/
 *.fdb_latexmk
 *.synctex.gz
 
+# Python
+__pycache__/
+*.pyc
+
 # System / OS
 .DS_Store
 Thumbs.db
+
