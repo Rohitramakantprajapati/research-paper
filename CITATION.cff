@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this monograph or Lean 4 formalization, please cite it as below."
+title: "On the Directional Drift-Diffusion of Vorticity, Scale-Invariant Strain Bounds, and Ancient Rigidity for the 3D Incompressible Navier–Stokes Equations"
+authors:
+  - family-names: "Prajapati"
+    given-names: "Rohit Ramakant"
+    affiliation: "Independent Researcher"
+version: "1.0.0"
+date-released: "2026-10-28"
+license: "Apache-2.0"
+repository-code: "https://github.com/Rohitramakantprajapati/research-paper"
+# Identifiers left as explicit TODOs per repository instructions
+# doi: "TODO: Insert Zenodo/Archive DOI when assigned"
+# arxiv: "TODO: Insert arXiv ID (e.g., arXiv:XXXX.XXXXX) upon posting"
+keywords:
+  - "navier-stokes"
+  - "lean4"
+  - "mathlib"
+  - "pde"
+  - "fluid-dynamics"
+  - "vorticity"
+  - "formal-verification"
