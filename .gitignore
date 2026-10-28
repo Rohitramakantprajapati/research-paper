@@ -1,4 +1,15 @@
-# Lake / Lean 4 build artifacts
+# LaTeX artifacts
+*.aux
+*.log
+*.out
+*.toc
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.bbl
+*.blg
+
+# Lean 4 / Lake build artifacts
 .lake/
 **/.lake/
 lake-packages/
@@ -8,20 +19,29 @@ lake-packages/
 *.c
 *.hash
 
-# LaTeX compilation artifacts
-*.aux
-*.log
-*.out
-*.toc
-*.fls
-*.fdb_latexmk
-*.synctex.gz
+# Build directories
+build/
+**/build/
+paper/build/
 
-# Python
+# Python artifacts
 __pycache__/
 *.pyc
+*.pyo
 
-# System / OS
+# Generated document outputs (PDF & HTML)
+# Note: Paper chapter source files in paper/chapters/ are explicitly preserved
+*.pdf
+*.html
+!paper/chapters/*.html
+
+# Private reviewer correspondence & notes
+docs/private-notes/
+
+# OS and Editor artifacts
 .DS_Store
 Thumbs.db
-
+.vscode/
+.idea/
+*.swp
+*~
