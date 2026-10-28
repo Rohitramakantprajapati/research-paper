@@ -2,7 +2,7 @@ import os
 from playwright.sync_api import sync_playwright
 
 def generate_pdf():
-    html_file = os.path.abspath("monograph_full_treatise.html")
+    html_file = os.path.abspath("monograph_print.html")
     pdf_file = os.path.abspath("monograph.pdf")
     
     chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
