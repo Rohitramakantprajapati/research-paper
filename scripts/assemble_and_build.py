@@ -2,10 +2,11 @@ import os
 import subprocess
 from playwright.sync_api import sync_playwright
 
-BASE_DIR = r"C:\Users\praja\.gemini\antigravity\scratch\navier_stokes_research"
-CHAPTERS_DIR = os.path.join(BASE_DIR, "chapters")
-OUTPUT_HTML = os.path.join(BASE_DIR, "monograph_full_treatise.html")
-OUTPUT_PDF = os.path.join(BASE_DIR, "monograph.pdf")
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+CHAPTERS_DIR = os.path.join(REPO_ROOT, "paper", "chapters")
+BUILD_DIR = os.path.join(REPO_ROOT, "paper", "build")
+OUTPUT_HTML = os.path.join(BUILD_DIR, "monograph_full_treatise.html")
+OUTPUT_PDF = os.path.join(BUILD_DIR, "monograph.pdf")
 DESKTOP_DIR = r"C:\Users\praja\Desktop\research paper 2"
 
 HTML_HEADER = """<!DOCTYPE html>
@@ -197,6 +198,7 @@ def assemble_html():
     content.append(HTML_FOOTER)
     full_html = "\n".join(content)
     
+    os.makedirs(BUILD_DIR, exist_ok=True)
     with open(OUTPUT_HTML, "w", encoding="utf-8") as f:
         f.write(full_html)
     print(f"Assembled master HTML: {OUTPUT_HTML} ({len(full_html)} bytes)")
@@ -229,13 +231,15 @@ def compile_pdf():
     print(f"Successfully compiled PDF: {OUTPUT_PDF} ({size_kb:.2f} KB)")
 
 def copy_to_desktop():
-    print(f"Copying monograph assets to Desktop: {DESKTOP_DIR}...")
-    os.makedirs(DESKTOP_DIR, exist_ok=True)
-    subprocess.run([
-        "robocopy", BASE_DIR, DESKTOP_DIR, "monograph.pdf", "monograph_full_treatise.html",
-        "/IS", "/IT"
-    ], check=False)
-    print("Desktop assets synchronized.")
+    if os.path.exists(DESKTOP_DIR):
+        print(f"Copying monograph assets to Desktop: {DESKTOP_DIR}...")
+        subprocess.run([
+            "robocopy", BUILD_DIR, DESKTOP_DIR, "monograph.pdf", "monograph_full_treatise.html",
+            "/IS", "/IT"
+        ], check=False)
+        print("Desktop assets synchronized.")
+    else:
+        print(f"Desktop folder {DESKTOP_DIR} not found; skipping copy.")
 
 if __name__ == "__main__":
     assemble_html()

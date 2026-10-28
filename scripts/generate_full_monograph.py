@@ -1,8 +1,11 @@
 import os
 import sys
 
-# Builder script to compile the complete 11-chapter monograph into HTML and PDF
-html_path = r"C:\Users\praja\.gemini\antigravity\scratch\navier_stokes_research\monograph_full_treatise.html"
-md_path = r"C:\Users\praja\.gemini\antigravity\scratch\navier_stokes_research\monograph_full_treatise.md"
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from assemble_and_build import assemble_html, compile_pdf
 
-print("Compiling full monograph treatise text...")
+if __name__ == "__main__":
+    print("Compiling full monograph treatise text...")
+    assemble_html()
+    compile_pdf()

@@ -86,15 +86,21 @@ def assemble_thesis():
     
     full_html = HTML_TEMPLATE.replace("{css_styles}", CSS_STYLES).replace("{body_content}", full_body)
     
-    output_html_path = os.path.abspath("university_thesis_monograph.html")
+    REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    BUILD_DIR = os.path.join(REPO_ROOT, "paper", "build")
+    os.makedirs(BUILD_DIR, exist_ok=True)
+    output_html_path = os.path.join(BUILD_DIR, "university_thesis_monograph.html")
     with open(output_html_path, "w", encoding="utf-8") as f:
         f.write(full_html)
     print(f"Generated clean HTML treatise: {output_html_path} ({len(full_html)} bytes)")
     return output_html_path
 
 def compile_pdf(html_path):
-    output_pdf_path = os.path.abspath("university_thesis_monograph.pdf")
-    monograph_pdf_path = os.path.abspath("monograph.pdf")
+    REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    BUILD_DIR = os.path.join(REPO_ROOT, "paper", "build")
+    os.makedirs(BUILD_DIR, exist_ok=True)
+    output_pdf_path = os.path.join(BUILD_DIR, "university_thesis_monograph.pdf")
+    monograph_pdf_path = os.path.join(BUILD_DIR, "monograph.pdf")
     
     chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
     if not os.path.exists(chrome_path):
@@ -143,21 +149,8 @@ def compile_pdf(html_path):
         browser.close()
         
     if os.path.exists(output_pdf_path):
-        # Update monograph.pdf in thesis_generator
-        shutil.copyfile(output_pdf_path, monograph_pdf_path)
-        
-        # Update root repo PDFs and HTML
-        repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-        root_monograph = os.path.join(repo_root, "monograph.pdf")
-        root_thesis = os.path.join(repo_root, "university_thesis_monograph.pdf")
-        root_html = os.path.join(repo_root, "university_thesis_monograph.html")
-        try:
-            shutil.copyfile(output_pdf_path, root_monograph)
-            shutil.copyfile(output_pdf_path, root_thesis)
-            shutil.copyfile(html_path, root_html)
-            print("Updated root repository monograph.pdf and university_thesis_monograph.pdf")
-        except Exception as e:
-            print(f"Warning updating root repo files: {e}")
+        # Output is already preserved in paper/build/monograph.pdf and university_thesis_monograph.pdf
+        print(f"Monograph PDF generated at: {monograph_pdf_path}")
             
         # Copy to Desktop directories
         desktop_folders = [

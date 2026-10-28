@@ -1,7 +1,8 @@
 import os
 import subprocess
 
-TEX_PATH = r"C:\Users\praja\.gemini\antigravity\scratch\navier_stokes_research\monograph.tex"
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEX_PATH = os.path.join(REPO_ROOT, "paper", "monograph.tex")
 DESKTOP_PATH = r"C:\Users\praja\Desktop\research paper 2\monograph.tex"
 
 latex_content = r"""\documentclass[11pt,reqno]{amsart}
@@ -213,6 +214,7 @@ with open(TEX_PATH, "w", encoding="utf-8") as f:
     f.write(latex_content)
 print(f"Updated master LaTeX source: {TEX_PATH} ({len(latex_content)} bytes)")
 
-with open(DESKTOP_PATH, "w", encoding="utf-8") as f:
-    f.write(latex_content)
-print(f"Synchronized with Desktop: {DESKTOP_PATH}")
+if os.path.exists(os.path.dirname(DESKTOP_PATH)):
+    with open(DESKTOP_PATH, "w", encoding="utf-8") as f:
+        f.write(latex_content)
+    print(f"Synchronized with Desktop: {DESKTOP_PATH}")

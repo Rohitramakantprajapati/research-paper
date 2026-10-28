@@ -75,5 +75,13 @@ def convert_md_to_pdf(md_filename, pdf_filename, title):
         print(f"SUCCESS: Generated {pdf_filename} ({os.path.getsize(pdf_filename)/1024:.2f} KB)")
 
 if __name__ == "__main__":
-    convert_md_to_pdf("peer_review_cover_letters.md", "peer_review_cover_letters.pdf", "Peer-Review Cover Letters & Evaluation Package")
-    convert_md_to_pdf("arxiv_submission_guide.md", "arxiv_submission_guide.pdf", "arXiv Submission Guide & Instructions")
+    REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    letters_md = os.path.join(REPO_ROOT, "docs", "private-notes", "peer_review_cover_letters.md")
+    letters_pdf = os.path.join(REPO_ROOT, "docs", "private-notes", "peer_review_cover_letters.pdf")
+    arxiv_md = os.path.join(REPO_ROOT, "docs", "arxiv_submission_guide.md")
+    arxiv_pdf = os.path.join(REPO_ROOT, "docs", "arxiv_submission_guide.pdf")
+
+    if os.path.exists(letters_md):
+        convert_md_to_pdf(letters_md, letters_pdf, "Peer-Review Cover Letters & Evaluation Package")
+    if os.path.exists(arxiv_md):
+        convert_md_to_pdf(arxiv_md, arxiv_pdf, "arXiv Submission Guide & Instructions")

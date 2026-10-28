@@ -1,9 +1,18 @@
 import os
 from playwright.sync_api import sync_playwright
 
+REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BUILD_DIR = os.path.join(REPO_ROOT, "paper", "build")
+
 def generate_pdf():
-    html_file = os.path.abspath("monograph_print.html")
-    pdf_file = os.path.abspath("monograph.pdf")
+    os.makedirs(BUILD_DIR, exist_ok=True)
+    html_file = os.path.join(BUILD_DIR, "monograph_print.html")
+    if not os.path.exists(html_file):
+        # Fall back to repo root if present
+        root_html = os.path.join(REPO_ROOT, "monograph_print.html")
+        if os.path.exists(root_html):
+            html_file = root_html
+    pdf_file = os.path.join(BUILD_DIR, "monograph.pdf")
     
     chrome_path = r"C:\Program Files\Google\Chrome\Application\chrome.exe"
     if not os.path.exists(chrome_path):
