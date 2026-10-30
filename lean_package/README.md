@@ -1,7 +1,7 @@
 # 3D Navier–Stokes Regularity & BKM Exclusion in Lean 4
 
 **Author:** Rohit Ramakant Prajapati  
-**License:** Apache License 2.0  
+**License:** MIT License
 **Toolchain:** `leanprover/lean4:v4.35.0`  
 **Dependencies:** Mathlib 4 (`v4.35.0`)  
 

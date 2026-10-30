@@ -2,7 +2,7 @@
 
 **Author:** Rohit Ramakant Prajapati  
 **Affiliation:** Independent Researcher  
-**License:** Apache License 2.0  
+**License:** CC BY 4.0 for the monograph; MIT for `lean_package/`  
 **DOI:** [10.5281/zenodo.XXXXXXX](https://zenodo.org)  
 
 ---
@@ -89,3 +89,12 @@ lake env lean AxiomCheck.lean
   primaryClass  = {math.AP}
 }
 ```
+
+## License
+
+The monograph and text in this repository are licensed under CC BY 4.0 (see [LICENSE](LICENSE)). The code in `lean_package/` is licensed under MIT (see [lean_package/LICENSE](lean_package/LICENSE)).
+
+## Build
+
+- `make pdf` compiles `monograph.tex` to PDF using `latexmk`.
+- `make lean` builds the Lean package using Lake.
