@@ -20,3 +20,22 @@ lake-packages/
 # System / OS
 .DS_Store
 Thumbs.db
+
+*.pdf
+*.html
+*.aux
+*.log
+*.out
+*.toc
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+_local_archive/
+assemble_and_build.py
+build_additional_pdfs.py
+build_full_latex.py
+build_pdf.py
+compile_pdf.py
+generate_full_monograph.py
