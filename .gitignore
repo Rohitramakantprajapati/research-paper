@@ -39,3 +39,5 @@ build_full_latex.py
 build_pdf.py
 compile_pdf.py
 generate_full_monograph.py
+__pycache__/
+*.pyc

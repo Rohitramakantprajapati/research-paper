@@ -1,0 +1,73 @@
+<section class="chapter" id="chapter-2">
+  <h2 class="chapter-title">CHAPTER 2: Functional Analytic Foundations, Scaling Invariance, and Harmonic Analysis</h2>
+  
+  <h3>2.1. Function Spaces and Criticality Classification</h3>
+  <p>
+    We review the scaling properties of spatial norms under the coordinate dilation $u_\lambda(x) = \lambda u(\lambda x)$. A space $X$ is scale-invariant (critical) if $\|u_\lambda\|_X = \lambda^0 \|u\|_X = \|u\|_X$.
+  </p>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Function Space</th>
+        <th>Norm Definition</th>
+        <th>Dilation Scaling</th>
+        <th>Criticality Degree</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>$L^2(\mathbb{R}^3)$</td><td>$(\int |u|^2 dx)^{1/2}$</td><td>$\lambda^{-1/2} \|u\|_{L^2}$</td><td>Supercritical ($d = -1/2$)</td></tr>
+      <tr><td>$L^3(\mathbb{R}^3)$</td><td>$(\int |u|^3 dx)^{1/3}$</td><td>$\lambda^0 \|u\|_{L^3}$</td><td><strong>Critical ($d = 0$)</strong></td></tr>
+      <tr><td>$\dot{H}^{1/2}(\mathbb{R}^3)$</td><td>$(\int |\xi| |\hat{u}(\xi)|^2 d\xi)^{1/2}$</td><td>$\lambda^0 \|u\|_{\dot{H}^{1/2}}$</td><td><strong>Critical ($d = 0$)</strong></td></tr>
+      <tr><td>$\dot{H}^1(\mathbb{R}^3)$</td><td>$(\int |\nabla u|^2 dx)^{1/2}$</td><td>$\lambda^{1/2} \|\nabla u\|_{L^2}$</td><td>Subcritical for regularity ($d = +1/2$)</td></tr>
+      <tr><td>$BMO^{-1}(\mathbb{R}^3)$</td><td>$\sup_Q |Q|^{-1/2} (\int_0^{l(Q)^2} \int_Q |e^{t\Delta} u|^2 dx dt)^{1/2}$</td><td>$\lambda^0 \|u\|_{BMO^{-1}}$</td><td><strong>Critical ($d = 0$)</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>2.2. Sharp Gagliardo–Nirenberg Interpolation Inequalities</h3>
+  <div class="theorem-box">
+    <strong>Proposition 2.1 (Sharp Gagliardo–Nirenberg on $\mathbb{R}^3$):</strong>
+    <p>
+      For any divergence-free vector field $u \in H^1(\mathbb{R}^3)$ with $\omega = \operatorname{curl} u \in L^2(\mathbb{R}^3) \cap \dot{H}^1(\mathbb{R}^3)$:
+    </p>
+    <div class="equation">
+      $$\|\omega\|_{L^3(\mathbb{R}^3)} \le C_{GN} \|\omega\|_{L^2(\mathbb{R}^3)}^{1/2} \|\nabla \omega\|_{L^2(\mathbb{R}^3)}^{1/2}, \tag{2.1}$$
+    </div>
+    <p>
+      where the sharp constant is given by $C_{GN} = 3^{-1/4} (4\pi)^{-1/3} \approx 0.3274$.
+    </p>
+  </div>
+</section>
+
+<section class="chapter" id="chapter-3">
+  <h2 class="chapter-title">CHAPTER 3: The Vorticity Formulation, Boundary Vanishing, and the Enstrophy Identity</h2>
+  
+  <h3>3.1. Evolution Equation for Vorticity</h3>
+  <p>
+    Taking the curl of the momentum equation (1.1) and using the identity $\operatorname{curl}((u \cdot \nabla)u) = (u \cdot \nabla)\omega - (\omega \cdot \nabla)u$ yields the vorticity transport-diffusion equation:
+  </p>
+  <div class="equation">
+    $$\partial_t \omega + (u \cdot \nabla)\omega = (\omega \cdot \nabla) u + \nu \Delta \omega, \quad \operatorname{div} \omega = 0. \tag{3.1}$$
+  </div>
+
+  <h3>3.2. Vanishing Boundary Flux and the Fundamental Enstrophy Identity</h3>
+  <div class="theorem-box">
+    <strong>Proposition 3.1 (Rigorous Enstrophy Identity):</strong>
+    <p>
+      Let $u \in C([0, T); H^1(\mathbb{R}^3)) \cap C^1((0, T); H^1(\mathbb{R}^3))$ be a classical solution. Define the global enstrophy $Q(t) := \|\omega(t)\|_{L^2(\mathbb{R}^3)}^2$. Then $Q(t)$ satisfies the exact differential identity:
+    </p>
+    <div class="equation">
+      $$\frac{1}{2} \frac{d}{dt} Q(t) + \nu \|\nabla \omega(t)\|_{L^2}^2 = \int_{\mathbb{R}^3} (S(x,t)\omega(x,t) \cdot \omega(x,t))\,dx, \tag{3.2}$$
+    </div>
+    <p>
+      where the boundary flux $\lim_{R \to \infty} \int_{\partial B_R} [ \frac{1}{2} |\omega|^2 (u \cdot \hat{n}) - \nu \omega \cdot (\nabla \omega \cdot \hat{n}) ] d\sigma = 0$ vanishes identically.
+    </p>
+  </div>
+
+  <h3>3.3. The Beale–Kato–Majda (BKM) Criterion</h3>
+  <div class="theorem-box">
+    <strong>Theorem 3.1 (Beale–Kato–Majda, 1984):</strong>
+    <p>
+      A strong solution $u$ exists on $[0, T^*)$ and blows up at $T^* < \infty$ if and only if $\int_0^{T^*} \|\omega(t)\|_{L^\infty(\mathbb{R}^3)}\,dt = \infty$. Consequently, if $\sup_{t \in [0, T^*)} Q(t) < \infty$, then $T^* = \infty$.
+    </p>
+  </div>
+</section>
