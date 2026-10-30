@@ -32,3 +32,14 @@ jobs:
         uses: leanprover/lean-action@v1
         with:
           lake-package-directory: lean_package
+      - name: Check every Lean source file
+        shell: bash
+        working-directory: lean_package
+        run: |
+          set -euo pipefail
+          mapfile -t sources < <(find . -path './.lake' -prune -o -type f -name '*.lean' -print | sort)
+          for source in "${sources[@]}"; do
+            echo "::group::Checking ${source#./}"
+            lake env lean "$source"
+            echo "::endgroup::"
+          done
