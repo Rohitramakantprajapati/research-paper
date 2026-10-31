@@ -4,7 +4,7 @@
 [![Axioms: Verified (Zero Sorry)](https://img.shields.io/badge/Axioms-Verified%20(Zero%20Sorry)-blue?style=flat-square&logo=lean)](https://github.com/Rohitramakantprajapati/research-paper)
 [![Lean 4](https://img.shields.io/badge/Lean%204-v4.35.0-orange?style=flat-square&logo=lean)](https://lean-lang.org)
 [![Mathlib 4](https://img.shields.io/badge/Mathlib-v4.35.0-purple?style=flat-square)](https://github.com/leanprover-community/mathlib4)
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache%202.0-blue.svg?style=flat-square)](https://opensource.org/licenses/Apache-2.0)
+[![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg?style=flat-square)](https://creativecommons.org/licenses/by/4.0/)
 [![ORCID](https://img.shields.io/badge/ORCID-0009--0004--8921--931X-green?style=flat-square&logo=orcid)](https://orcid.org/0009-0004-8921-931X)
 
 **Author:** Rohit Ramakant Prajapati  
@@ -88,19 +88,18 @@ The logical deduction connecting analytical Biot–Savart bounds to Beale–Kato
 
 | Asset | Path | Description | Verification Status |
 | :--- | :--- | :--- | :--- |
-| **PDF Monograph** | [`university_thesis_monograph.pdf`](file:///C:/Users/praja/.gemini/antigravity/scratch/navier_stokes_research/university_thesis_monograph.pdf) | Complete 73-page Independent Research Monograph | Formatted & Typeset |
-| **HTML Monograph** | [`university_thesis_monograph.html`](file:///C:/Users/praja/.gemini/antigravity/scratch/navier_stokes_research/university_thesis_monograph.html) | Interactive HTML Monograph with KaTeX equations | Interactive & Standalone |
-| **LaTeX Monograph** | [`monograph.tex`](file:///C:/Users/praja/.gemini/antigravity/scratch/navier_stokes_research/monograph.tex) | Journal-formatted AMS-LaTeX master source code (`amsart`) | Compiles cleanly |
-| **Preprint PDF** | [`monograph.pdf`](file:///C:/Users/praja/.gemini/antigravity/scratch/navier_stokes_research/monograph.pdf) | Publication-grade concise research monograph (PDF) | 338 KB |
-| **Cover Letters** | [`peer_review_cover_letters.pdf`](file:///C:/Users/praja/.gemini/antigravity/scratch/navier_stokes_research/peer_review_cover_letters.pdf) | Editorial submission letters for CPAM, ARMA, CMP, Annals of PDE | Formatted |
-| **arXiv Guide** | [`arxiv_submission_guide.pdf`](file:///C:/Users/praja/.gemini/antigravity/scratch/navier_stokes_research/arxiv_submission_guide.pdf) | Step-by-step arXiv preprint submission checklist | Complete |
-| **Lean 4 Formalization** | [`lean_package/`](file:///C:/Users/praja/.gemini/antigravity/scratch/navier_stokes_research/lean_package/) | Machine-checked verification package | **Zero `sorry` Verified** |
+| **LaTeX monograph source** | [`monograph.tex`](monograph.tex) | AMS-LaTeX master source; build the PDF locally with `make pdf` | Source |
+| **Chapter source material** | [`chapters/`](chapters/) | Monograph chapter files | Source |
+| **Lean 4 formalization** | [`lean_package/`](lean_package/) | Machine-checked verification package | Source |
+| **arXiv submission guide** | [`arxiv_submission_guide.md`](arxiv_submission_guide.md) | Submission instructions | Documentation |
+| **Peer-review cover letters** | [`peer_review_cover_letters.md`](peer_review_cover_letters.md) | Editorial submission letters | Documentation |
+| **arXiv metadata** | [`arxiv_metadata.json`](arxiv_metadata.json) | Submission metadata | Metadata |
 
 ---
 
 ## Lean 4 Formalization Architecture
 
-The machine-checked package is located in [`lean_package/`](file:///C:/Users/praja/.gemini/antigravity/scratch/navier_stokes_research/lean_package/):
+The machine-checked package is located in [`lean_package/`](lean_package/):
 
 ```
 lean_package/
@@ -141,13 +140,11 @@ lake --version
 
 ---
 
-### Step 2: Build the Package Using `lake build`
-Navigate into the `lean_package` directory and invoke `lake build`:
+### Step 2: Build the Lean package
+From the repository root, run:
 
 ```bash
-cd lean_package
-lake update
-lake build
+make lean
 ```
 
 **Expected Build Output:**
@@ -182,28 +179,12 @@ All declarations rely exclusively on standard classical ZFC type theory (`propex
 
 ---
 
-## How to View the Research Monograph
+## Build the monograph PDF
 
-### 1. Interactive HTML Monograph
-Open [`university_thesis_monograph.html`](file:///C:/Users/praja/.gemini/antigravity/scratch/navier_stokes_research/university_thesis_monograph.html) in your browser:
+Generated PDFs are kept out of the repository. To build a local copy, install `latexmk` and a LaTeX distribution, then run:
+
 ```bash
-# Windows
-start university_thesis_monograph.html
-
-# Linux
-xdg-open university_thesis_monograph.html
-
-# macOS
-open university_thesis_monograph.html
-```
-
-### 2. Standalone PDF Monograph
-The compiled 73-page PDF is ready to read at:
-* [`university_thesis_monograph.pdf`](file:///C:/Users/praja/.gemini/antigravity/scratch/navier_stokes_research/university_thesis_monograph.pdf)
-
-To re-render the PDF from HTML using headless Chrome:
-```powershell
-python compile_pdf.py
+make pdf
 ```
 
 ---
@@ -222,3 +203,12 @@ If you consult or build upon the mathematical derivations or Lean 4 formalizatio
   url          = {https://github.com/Rohitramakantprajapati/research-paper}
 }
 ```
+
+## License
+
+The monograph and text in this repository are licensed under CC BY 4.0 (see [LICENSE](LICENSE)). The code in `lean_package/` is licensed under MIT (see [lean_package/LICENSE](lean_package/LICENSE)).
+
+## Build
+
+- `make pdf` compiles `monograph.tex` to PDF using `latexmk`.
+- `make lean` builds the Lean package using Lake.
